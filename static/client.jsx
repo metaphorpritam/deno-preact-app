@@ -1,9 +1,8 @@
-
 import { hydrate } from "preact";
 import { App } from "../src/App.tsx";
 
 // Wait for the DOM to be fully loaded
-window.addEventListener("DOMContentLoaded", () => {
+globalThis.addEventListener("DOMContentLoaded", () => {
   // Use hydrate instead of render to attach to the server-rendered HTML
   const appElement = document.getElementById("app");
   if (appElement) {

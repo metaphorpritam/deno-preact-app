@@ -7,7 +7,7 @@ import postcss from "npm:postcss@8.4.31";
 import tailwindcss from "npm:tailwindcss@3.3.5";
 
 // Import the config
-const twConfig = await import("./tailwind.config.js").then(m => m.default);
+const twConfig = await import("./tailwind.config.js").then((m) => m.default);
 
 // Read the CSS file
 const css = await Deno.readTextFile("./src/styles.css");
@@ -15,7 +15,7 @@ const css = await Deno.readTextFile("./src/styles.css");
 // Process the CSS with Tailwind
 try {
   const result = await postcss([tailwindcss(twConfig)]).process(css, {
-    from: "./src/styles.css"
+    from: "./src/styles.css",
   });
 
   // Write the processed CSS

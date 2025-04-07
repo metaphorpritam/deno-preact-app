@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'preact/hooks';
-import { TodoItem } from './TodoItem.tsx';
+import { useEffect, useState } from "preact/hooks";
+import { TodoItem } from "./TodoItem.tsx";
 
 // Define the Todo type
 interface Todo {
@@ -11,37 +11,37 @@ interface Todo {
 export function TodoList() {
   // State for todos and input value
   const [todos, setTodos] = useState<Todo[]>([
-    { id: 1, text: 'Learn Preact', completed: false },
-    { id: 2, text: 'Build a To-Do app', completed: false },
-    { id: 3, text: 'Master Deno', completed: false }
+    { id: 1, text: "Learn Preact", completed: false },
+    { id: 2, text: "Build a To-Do app", completed: false },
+    { id: 3, text: "Master Deno", completed: false },
   ]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [completedCount, setCompletedCount] = useState(0);
 
   // Effect to update completed count whenever todos change
   useEffect(() => {
-    const completed = todos.filter(todo => todo.completed).length;
+    const completed = todos.filter((todo) => todo.completed).length;
     setCompletedCount(completed);
   }, [todos]);
 
   // Add new todo
   const addTodo = () => {
-    if (inputValue.trim() === '') return;
+    if (inputValue.trim() === "") return;
 
     const newTodo: Todo = {
       id: Date.now(),
       text: inputValue.trim(),
-      completed: false
+      completed: false,
     };
 
-    setTodos(prevTodos => [...prevTodos, newTodo]);
-    setInputValue('');
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
+    setInputValue("");
   };
 
   // Toggle todo completion status
   const toggleTodo = (id: number) => {
-    setTodos(prevTodos =>
-      prevTodos.map(todo =>
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     );
@@ -49,12 +49,12 @@ export function TodoList() {
 
   // Delete a todo
   const deleteTodo = (id: number) => {
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   // Handle key press (Enter)
   const handleKeyPress = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       addTodo();
     }
   };
@@ -86,22 +86,24 @@ export function TodoList() {
       </div>
 
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        {todos.length === 0 ? (
-          <div className="p-4 text-center text-gray-500">
-            No tasks yet! Add one above.
-          </div>
-        ) : (
-          <ul>
-            {todos.map(todo => (
-              <TodoItem
-                key={todo.id}
-                todo={todo}
-                onToggle={toggleTodo}
-                onDelete={deleteTodo}
-              />
-            ))}
-          </ul>
-        )}
+        {todos.length === 0
+          ? (
+            <div className="p-4 text-center text-gray-500">
+              No tasks yet! Add one above.
+            </div>
+          )
+          : (
+            <ul>
+              {todos.map((todo) => (
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  onToggle={toggleTodo}
+                  onDelete={deleteTodo}
+                />
+              ))}
+            </ul>
+          )}
       </div>
 
       <div className="text-sm text-gray-500 text-center">
